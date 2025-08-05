@@ -1,0 +1,41 @@
+pipeline {
+  agent any
+
+  triggers {
+    cron('*/2 * * * *')   // Run every 2 minutes
+  }
+
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '10')) // Keep last 10 builds
+  }
+
+  stages {
+    stage('Greet Ashok') {
+      steps {
+        script {
+          def message = "Hello, Ashok! Welcome to Jenkins Pipeline."
+          echo "${message}"
+          sh """
+            echo "${message}"
+            echo "Run at: \$(date)" > greeting.txt
+          """
+        }
+      }
+    }
+
+    stage('Archive Output') {
+      steps {
+        archiveArtifacts artifacts: 'greeting.txt', onlyIfSuccessful: true
+      }
+    }
+  }
+
+  post {
+    success {
+      echo 'Build completed successfully!'
+    }
+    failure {
+      echo 'Build failed!'
+    }
+  }
+}
