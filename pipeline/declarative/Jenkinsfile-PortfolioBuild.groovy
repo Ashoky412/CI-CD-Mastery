@@ -1,4 +1,7 @@
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', daysToKeepStr: '7'))
+    }
     agent {
         kubernetes {
             label 'k8s-agent'
