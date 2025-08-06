@@ -16,8 +16,7 @@ controller:
 
   persistence:
     enabled: true
-    existingClaim: jenkins
-    storageClass: ""
+    storageClass: jenkins-ebs-sc
     size: 20Gi
     annotations: {}
     accessMode: ReadWriteOnce
