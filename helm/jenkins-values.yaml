@@ -19,7 +19,6 @@ controller:
     storageClass: jenkins-ebs-sc
     size: 20Gi
 
-
   JCasC:
     defaultConfig: true
     configScripts:

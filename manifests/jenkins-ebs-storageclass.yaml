@@ -10,4 +10,4 @@ allowedTopologies:
   - matchLabelExpressions:
       - key: topology.kubernetes.io/zone
         values:
-          - ap-south-1a  # Replace this with your actual AZ if different
+          - ap-south-1a  # Replace with your exact AZ
