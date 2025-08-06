@@ -1,20 +1,53 @@
 controller:
-  installPlugins: []
-  runAsUser: 0
-  runAsGroup: 0
-  fsGroup: 0
+  image:
+    tag: 2.516.1-jdk21
+  adminUser: admin
+  adminPassword: admin
 
-  serviceType: NodePort
-  nodePort: 30080
-
-  admin:
-    username: admin
-    password: admin
+  installPlugins:
+    - kubernetes:latest
+    - workflow-aggregator:latest
+    - git:latest
+    - configuration-as-code:latest
 
   persistence:
     enabled: true
     existingClaim: jenkins
+    size: 20Gi
     storageClass: ""
-    size: null
+    annotations: {}
+    accessMode: ReadWriteOnce
 
-  initContainers: []  # ✅ disables broken init script
+  initContainers:
+    - name: volume-permissions
+      image: busybox
+      command:
+        - sh
+        - -c
+        - chown -R 1000:1000 /var/jenkins_home
+      securityContext:
+        runAsUser: 0
+      volumeMounts:
+        - name: jenkins-home
+          mountPath: /var/jenkins_home
+
+  sidecars:
+    configAutoReload:
+      enabled: true
+      image:
+        repository: kiwigrid/k8s-sidecar
+        tag: 1.30.3
+      folder: /var/jenkins_home/casc_configs
+      resources: {}
+
+  JCasC:
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: "Welcome to Ashok’s Jenkins"
+
+    defaultConfig: true
+
+  service:
+    type: NodePort
+    nodePort: 32000
