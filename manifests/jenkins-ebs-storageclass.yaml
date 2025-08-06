@@ -2,10 +2,12 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: jenkins-ebs-sc
-provisioner: kubernetes.io/aws-ebs
-parameters:
-  type: gp3
-  fsType: ext4
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 reclaimPolicy: Retain
-volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+  - matchLabelExpressions:
+      - key: topology.kubernetes.io/zone
+        values:
+          - ap-south-1a  # Replace this with your actual AZ if different
