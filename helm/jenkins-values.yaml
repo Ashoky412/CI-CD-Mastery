@@ -1,4 +1,5 @@
 controller:
+  initContainers: []
   installPlugins: []
   runAsUser: 0
   runAsGroup: 0
