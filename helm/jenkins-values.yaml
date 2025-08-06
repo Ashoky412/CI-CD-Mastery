@@ -16,7 +16,13 @@ controller:
 
   persistence:
     enabled: true
-    existingClaim: jenkins  # ✅ Use pre-created PVC, do NOT set storageClass/size
+    existingClaim: jenkins
+    storageClass: ""
+    size: 20Gi
+    annotations: {}
+    accessMode: ReadWriteOnce
+    volumeName: ""
+    subPath: ""
 
   JCasC:
     defaultConfig: true
