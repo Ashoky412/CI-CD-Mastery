@@ -16,7 +16,9 @@ controller:
 
   persistence:
     enabled: true
-    existingClaim: jenkins  # <-- should match PVC created using dynamic EBS SC
+    storageClass: jenkins-ebs-sc
+    size: 20Gi
+
 
   JCasC:
     defaultConfig: true
