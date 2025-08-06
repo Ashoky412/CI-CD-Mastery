@@ -1,5 +1,4 @@
 controller:
-  initContainers: []
   installPlugins: []
   runAsUser: 0
   runAsGroup: 0
@@ -17,3 +16,5 @@ controller:
     existingClaim: jenkins
     storageClass: ""
     size: null
+
+  initContainers: []  # ✅ disables broken init script
