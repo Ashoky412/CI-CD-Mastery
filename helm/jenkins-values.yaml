@@ -16,8 +16,7 @@ controller:
 
   persistence:
     enabled: true
-    storageClass: jenkins-ebs-sc
-    size: 20Gi
+    existingClaim: jenkins
 
   JCasC:
     defaultConfig: true
