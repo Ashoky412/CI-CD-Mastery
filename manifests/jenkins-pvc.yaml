@@ -3,6 +3,13 @@ kind: PersistentVolumeClaim
 metadata:
   name: jenkins
   namespace: jenkins
+  labels:
+    app.kubernetes.io/name: jenkins
+    app.kubernetes.io/instance: jenkins
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    meta.helm.sh/release-name: jenkins
+    meta.helm.sh/release-namespace: jenkins
 spec:
   accessModes:
     - ReadWriteOnce
