@@ -13,7 +13,7 @@ controller:
   persistence:
     enabled: true
     existingClaim: jenkins
-    size: 20Gi
+    size: null
     storageClass: ""
     annotations: {}
     accessMode: ReadWriteOnce
