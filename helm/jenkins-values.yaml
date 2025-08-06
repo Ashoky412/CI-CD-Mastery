@@ -14,7 +14,7 @@ controller:
     enabled: true
     existingClaim: jenkins
     size: null
-    storageClass: ""
+    storageClass: "-"
     annotations: {}
     accessMode: ReadWriteOnce
 
