@@ -16,7 +16,7 @@ controller:
 
   persistence:
     enabled: true
-    existingClaim: jenkins
+    existingClaim: jenkins  # ✅ Use pre-created PVC, do NOT set storageClass/size
 
   JCasC:
     defaultConfig: true
