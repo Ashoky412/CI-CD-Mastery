@@ -18,6 +18,9 @@ controller:
     annotations: {}
     accessMode: ReadWriteOnce
 
+  volumePermissions:
+    enabled: true  
+
   initContainers:
     - name: volume-permissions
       image: busybox
