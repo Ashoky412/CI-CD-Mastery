@@ -9,8 +9,5 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
-  claimRef:
-    namespace: jenkins
-    name: jenkins
   hostPath:
-    path: /mnt/jenkins-data
+    path: /mnt/data/jenkins-data
