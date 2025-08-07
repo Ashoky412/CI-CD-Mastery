@@ -10,47 +10,20 @@ controller:
     - git:latest
     - configuration-as-code:latest
 
+  service:
+    type: NodePort
+    nodePortHttp: 30080
+    nodePortHttps: 30443
+
   persistence:
     enabled: true
     existingClaim: jenkins
     storageClass: ""
     size: null
-    annotations: {}
     accessMode: ReadWriteOnce
 
-  volumePermissions:
-    enabled: true  
+  podSecurityContext:
+    fsGroup: 1000
 
-  initContainers:
-    - name: volume-permissions
-      image: busybox
-      command:
-        - sh
-        - -c
-        - chown -R 1000:1000 /var/jenkins_home
-      securityContext:
-        runAsUser: 0
-      volumeMounts:
-        - name: jenkins-home
-          mountPath: /var/jenkins_home
-
-  sidecars:
-    configAutoReload:
-      enabled: true
-      image:
-        repository: kiwigrid/k8s-sidecar
-        tag: 1.30.3
-      folder: /var/jenkins_home/casc_configs
-      resources: {}
-
-  JCasC:
-    configScripts:
-      welcome-message: |
-        jenkins:
-          systemMessage: "Welcome to Ashok’s Jenkins"
-
-    defaultConfig: true
-
-  service:
-    type: NodePort
-    nodePort: 32000
+  containerSecurityContext:
+    runAsUser: 1000
