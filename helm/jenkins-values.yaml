@@ -1,6 +1,22 @@
 controller:
-  image:
-    tag: 2.516.1-jdk21
+  persistence:
+    enabled: true
+    existingClaim: jenkins
+    storageClass: ""
+    size: 10Gi
+
+  service:
+    type: NodePort
+    nodePorts:
+      http: 32080
+      https: 32443
+    securityContext:
+    fsGroup: 1001
+    runAsUser: 1001
+    runAsGroup: 1001  
+    port: 8080
+    targetPort: http
+
   adminUser: admin
   adminPassword: admin
 
@@ -9,21 +25,3 @@ controller:
     - workflow-aggregator:latest
     - git:latest
     - configuration-as-code:latest
-
-  service:
-    type: NodePort
-    nodePortHttp: 30080
-    nodePortHttps: 30443
-
-  persistence:
-    enabled: true
-    existingClaim: jenkins
-    storageClass: ""
-    size: null
-    accessMode: ReadWriteOnce
-
-  podSecurityContext:
-    fsGroup: 1000
-
-  containerSecurityContext:
-    runAsUser: 1000
